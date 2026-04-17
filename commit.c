@@ -219,4 +219,14 @@ if (tree_from_index(&tree_id) != 0) {
             "tree %s\nauthor %s\n\n%s\n",
             tree_hex, author, message);
     }
+    if (object_write(OBJ_COMMIT, buffer, strlen(buffer), commit_id_out) != 0) {
+        return -1;
+    }
+
+    if (head_update(commit_id_out) != 0) {
+        return -1;
+    }
+
+    return 0;
 }
+
