@@ -201,4 +201,5 @@ if (tree_from_index(&tree_id) != 0) {
 }
     ObjectID parent_id;
     int has_parent = (head_read(&parent_id) == 0);
+    const char *author = pes_author();
 }
