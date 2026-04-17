@@ -202,4 +202,21 @@ if (tree_from_index(&tree_id) != 0) {
     ObjectID parent_id;
     int has_parent = (head_read(&parent_id) == 0);
     const char *author = pes_author();
+    char tree_hex[HASH_HEX_SIZE + 1];
+    hash_to_hex(&tree_id, tree_hex);
+
+    char parent_hex[HASH_HEX_SIZE + 1];
+    if (has_parent) hash_to_hex(&parent_id, parent_hex);
+
+    char buffer[2048];
+
+    if (has_parent) {
+        snprintf(buffer, sizeof(buffer),
+            "tree %s\nparent %s\nauthor %s\n\n%s\n",
+            tree_hex, parent_hex, author, message);
+    } else {
+        snprintf(buffer, sizeof(buffer),
+            "tree %s\nauthor %s\n\n%s\n",
+            tree_hex, author, message);
+    }
 }
